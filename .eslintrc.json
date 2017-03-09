@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "plugins": [
+      "html"
+    ],
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn", "error"]
+          }
+        ],
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": [
+          "error",
+          {
+            "args": "none"
+          }
+        ]
+    }
+}

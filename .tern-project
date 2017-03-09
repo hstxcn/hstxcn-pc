@@ -1,0 +1,7 @@
+{
+  "libs": [ "browser", "ecma6" ],
+  "plugins": {
+    "complete_strings": {},
+    "es_modules": {}
+  }
+}

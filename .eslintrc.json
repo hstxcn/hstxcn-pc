@@ -4,14 +4,21 @@
         "es6": true
     },
     "plugins": [
-      "html"
+      "html",
+      "react"
     ],
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parser": "babel-eslint",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
+        "react/prop-types": [
+          0
+        ],
         "no-console": [
           "error",
           {

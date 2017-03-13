@@ -39,7 +39,6 @@ class SignUpInfo extends Component {
 class SignInInfo extends Component {
   constructor(props) {
     super(props);
-    this.valid = false;
     this.state = {
       phoneNum: '',
       password: '',

@@ -1,28 +1,30 @@
 .app {
-  text-align: center;
   height: 100%;
   min-height: 720px;
 }
 
-.app:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-.app-main {
-  min-height: 600px;
-  display: inline-block;
-  vertical-align: middle;
+nav {
+  background-color: #424242;
+  border-bottom: 4px solid #E91E63;
+  height: 60px;
 }
 
 .app-logo {
   animation: app-logo-spin infinite 20s linear;
-  height: 80px;
+  display: inline-block;
+  float: left;
+  height: 40px;
+  padding: 10px;
 }
 
 .app-intro {
-  font-size: large;
+  color: #ddd;
+  display: inline-block;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding: 10px;
 }
 
 @keyframes app-logo-spin {

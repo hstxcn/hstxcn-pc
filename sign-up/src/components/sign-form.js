@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 import TextInput from './text-input.js';
 import SingleCheckbox from './single-checkbox';
 import './sign-form.css';
@@ -16,6 +16,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: (value) => /^1[0-9]{10}$/.test(value),
+        trans: (value) => value,
         error: '手机号格式不正确'
       },
       {
@@ -25,6 +26,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: (value) => /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/.test(value),
+        trans: (value) => value,
         error: '邮箱格式不正确'
       },
       {
@@ -34,6 +36,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: isNotEmpty,
+        trans: (value) => value,
         error: '名字不可为空'
       },
       {
@@ -43,6 +46,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: isNotEmpty,
+        trans: (value) => value,
         error: '个人简介不可为空'
       },
       {
@@ -52,6 +56,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: isNotEmpty,
+        trans: (value) => value,
         error: '专业不可为空'
       },
       {
@@ -61,6 +66,7 @@ class SignForm extends Component {
         type: 'text',
         value: '',
         validator: isNotEmpty,
+        trans: (value) => value,
         error: '图集链接不可为空'
       },
       {
@@ -72,14 +78,16 @@ class SignForm extends Component {
         validator: (value) => value.split('/').reduce((acc, val) => {
           return acc && isNotEmpty(val);
         }, true),
+        trans: (value) => value.split('/'),
         error: '风格格式不正确'
       },
       {
         id: 7,
-        inputName: 'gender',
+        inputName: 'sex',
         label: '性别:',
         type: 'SingleCheckbox',
-        value: [
+        value: '1',
+        values: [
           {
             label: '男',
             value: '1'
@@ -89,22 +97,42 @@ class SignForm extends Component {
             value: '0'
           }
         ],
+        validator: (value) => true,
+        trans: (value) => value
       }
     ];
-    this.state = {
-      formInfo: {
-        phone_number: '',
-        name: '',
-        description: '',
-        sex: true,
-        images: new Array(String),
-        major: '',
-        imagelink: '',
-        school: '',
-        styles: new Array(String),
-        categories: new Array(String)
-      }
-    };
+    this.state = this.formConfig.reduce((acc, val) => {
+      acc[val.inputName] = val.value;
+      return acc;
+    }, {});
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleFormChange(state) {
+    this.setState(state);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const valid = this.formConfig.reduce((acc, val) => {
+      return acc && val.validator(this.state[val.inputName]);
+    }, true);
+    if(valid) {
+      const form = this.formConfig.reduce((acc, val) => {
+        acc[val.inputName] = val.trans(this.state[val.inputName]);
+        return acc;
+      }, {});
+      axios({
+        method: 'post',
+        url: '/api/register',
+        data: form
+      }).then((res) => {
+        //TODO:do something here
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
   }
   render() {
     let formList = this.formConfig.map((form) => {
@@ -115,13 +143,18 @@ class SignForm extends Component {
             key={form.id}
             validator={form.validator}
             inputName={form.inputName}
-            value={form.value}
+            value={this.state[form.inputName]}
             label={form.label}
+            onValueUpdate={this.handleFormChange}
           />);
       case 'SingleCheckbox':
         return (
           <SingleCheckbox
             key={form.id}
+            inputName={form.inputName}
+            values={form.values}
+            value={form.values[0].value}
+            onValueUpdate={this.handleFormChange}
           />
         );
       default:
@@ -134,7 +167,10 @@ class SignForm extends Component {
     });
     return (
       <div className="sign-form">
-        {formList}
+        <form onSubmit={this.handleSubmit}>
+          {formList}
+          <input type="submit"/>
+        </form>
       </div>
     );
   }

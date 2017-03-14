@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TextInput from './text-input.js';
+import TextInput from './text-input';
 import SingleCheckbox from './single-checkbox';
+import MultiCheckbox from './multi-checkbox';
+import ImageInput from './image-input';
 import './sign-form.css';
 
 class SignForm extends Component {
@@ -17,7 +19,7 @@ class SignForm extends Component {
         value: '',
         validator: (value) => /^1[0-9]{10}$/.test(value),
         trans: (value) => value,
-        error: '手机号格式不正确'
+        error: '格式不正确'
       },
       {
         id: 1,
@@ -27,7 +29,7 @@ class SignForm extends Component {
         value: '',
         validator: (value) => /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/.test(value),
         trans: (value) => value,
-        error: '邮箱格式不正确'
+        error: '格式不正确'
       },
       {
         id: 2,
@@ -37,7 +39,7 @@ class SignForm extends Component {
         value: '',
         validator: isNotEmpty,
         trans: (value) => value,
-        error: '名字不可为空'
+        error: '不可为空'
       },
       {
         id: 3,
@@ -47,7 +49,7 @@ class SignForm extends Component {
         value: '',
         validator: isNotEmpty,
         trans: (value) => value,
-        error: '个人简介不可为空'
+        error: '不可为空'
       },
       {
         id: 4,
@@ -57,7 +59,7 @@ class SignForm extends Component {
         value: '',
         validator: isNotEmpty,
         trans: (value) => value,
-        error: '专业不可为空'
+        error: '不可为空'
       },
       {
         id: 5,
@@ -67,19 +69,19 @@ class SignForm extends Component {
         value: '',
         validator: isNotEmpty,
         trans: (value) => value,
-        error: '图集链接不可为空'
+        error: '不可为空'
       },
       {
         id: 6,
         inputName: 'tag',
-        label: '风格（以\'/\'隔开）:',
+        label: '个人标签（以\'/\'隔开）:',
         type: 'text',
         value: '',
         validator: (value) => value.split('/').reduce((acc, val) => {
           return acc && isNotEmpty(val);
         }, true),
         trans: (value) => value.split('/'),
-        error: '风格格式不正确'
+        error: '格式不正确'
       },
       {
         id: 7,
@@ -99,7 +101,61 @@ class SignForm extends Component {
         ],
         validator: (value) => true,
         trans: (value) => value
-      }
+      },
+      {
+        id: 8,
+        inputName: 'styles',
+        label: '风格:',
+        type: 'MultiCheckbox',
+        value: [],
+        values: [
+          //TODO: use /api/blablabla/option to get info
+          {
+            label: '测试',
+            value: 'uuid'
+          },
+          {
+            label: '又一个测试',
+            value: 'uuid222'
+          }
+        ],
+        // validator: (value) => value.length > 0,
+        validator: (value) => true,
+        trans: (value) => value,
+        error: '至少选择一项'
+      },
+      {
+        id: 9,
+        inputName: 'categories',
+        label: '类目:',
+        type: 'MultiCheckbox',
+        value: [],
+        values: [
+          //TODO: use /api/blablabla/option to get info
+          {
+            label: '测试',
+            value: 'uuid'
+          },
+          {
+            label: '又一个测试',
+            value: 'uuid222'
+          }
+        ],
+        // validator: (value) => value.length > 0,
+        validator: (value) => true,
+        trans: (value) => value,
+        error: '至少选择一项'
+      },
+      {
+        id: 10,
+        inputName: 'images',
+        label: '作品:',
+        type: 'ImageInput',
+        value: [],
+        validator: (value) => value.length > 0,
+        trans: (value) => value,
+        error: '不可为空'
+      },
     ];
     this.state = this.formConfig.reduce((acc, val) => {
       acc[val.inputName] = val.value;
@@ -116,6 +172,8 @@ class SignForm extends Component {
     const valid = this.formConfig.reduce((acc, val) => {
       return acc && val.validator(this.state[val.inputName]);
     }, true);
+    //TODO: let user know it's valid or not
+    // console.log(valid);
     if(valid) {
       const form = this.formConfig.reduce((acc, val) => {
         acc[val.inputName] = val.trans(this.state[val.inputName]);
@@ -126,11 +184,11 @@ class SignForm extends Component {
         url: '/api/register',
         data: form
       }).then((res) => {
-        //TODO:do something here
-        console.log(res);
+        //TODO: do something
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     }
   }
@@ -153,7 +211,26 @@ class SignForm extends Component {
             key={form.id}
             inputName={form.inputName}
             values={form.values}
-            value={form.values[0].value}
+            value={this.state[form.inputName]}
+            onValueUpdate={this.handleFormChange}
+          />
+        );
+      case 'MultiCheckbox':
+        return (
+          <MultiCheckbox
+            key={form.id}
+            inputName={form.inputName}
+            values={form.values}
+            value={this.state[form.inputName]}
+            onValueUpdate={this.handleFormChange}
+          />
+        );
+      case 'ImageInput':
+        return (
+          <ImageInput
+            key={form.id}
+            inputName={form.inputName}
+            value={this.state[form.inputName]}
             onValueUpdate={this.handleFormChange}
           />
         );

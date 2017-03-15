@@ -3,7 +3,6 @@ import axios from 'axios';
 import TextInput from './text-input';
 import PasswordInput from './password-input';
 import './inputs.css';
-import './sign-in.css';
 
 class BaseForm extends Component {
   constructor(props) {
@@ -142,7 +141,7 @@ class BaseForm extends Component {
         <input
           className="submit"
           type="submit"
-          value="登录" />
+          value={this.props.request.name} />
       </form>
     );
   }

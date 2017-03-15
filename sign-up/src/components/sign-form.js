@@ -195,51 +195,52 @@ class SignForm extends Component {
   render() {
     let formList = this.formConfig.map((form) => {
       switch (form.type) {
-      case 'text':
-        return (
-          <TextInput
-            key={form.id}
-            validator={form.validator}
-            inputName={form.inputName}
-            value={this.state[form.inputName]}
-            label={form.label}
-            onValueUpdate={this.handleFormChange}
-          />);
-      case 'SingleCheckbox':
-        return (
-          <SingleCheckbox
-            key={form.id}
-            inputName={form.inputName}
-            values={form.values}
-            value={this.state[form.inputName]}
-            onValueUpdate={this.handleFormChange}
-          />
-        );
-      case 'MultiCheckbox':
-        return (
-          <MultiCheckbox
-            key={form.id}
-            inputName={form.inputName}
-            values={form.values}
-            value={this.state[form.inputName]}
-            onValueUpdate={this.handleFormChange}
-          />
-        );
-      case 'ImageInput':
-        return (
-          <ImageInput
-            key={form.id}
-            inputName={form.inputName}
-            value={this.state[form.inputName]}
-            onValueUpdate={this.handleFormChange}
-          />
-        );
-      default:
-        return (
-          <div
-            key={form.id}
-          >Unexpected type</div>
-        );
+        case 'text':
+          return (
+            <TextInput
+              key={form.id}
+              validator={form.validator}
+              inputName={form.inputName}
+              value={this.state[form.inputName]}
+              label={form.label}
+              onValueUpdate={this.handleFormChange}
+            />
+          );
+        case 'SingleCheckbox':
+          return (
+            <SingleCheckbox
+              key={form.id}
+              inputName={form.inputName}
+              values={form.values}
+              value={this.state[form.inputName]}
+              onValueUpdate={this.handleFormChange}
+            />
+          );
+        case 'MultiCheckbox':
+          return (
+            <MultiCheckbox
+              key={form.id}
+              inputName={form.inputName}
+              values={form.values}
+              value={this.state[form.inputName]}
+              onValueUpdate={this.handleFormChange}
+            />
+          );
+        case 'ImageInput':
+          return (
+            <ImageInput
+              key={form.id}
+              inputName={form.inputName}
+              value={this.state[form.inputName]}
+              onValueUpdate={this.handleFormChange}
+            />
+          );
+        default:
+          return (
+            <div
+              key={form.id}
+            >Unexpected type</div>
+          );
       }
     });
     return (

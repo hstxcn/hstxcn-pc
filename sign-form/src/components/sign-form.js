@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './sign-form.css';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
+import './sign-form.css';
 
 class SignTab extends Component {
   constructor(props) {
@@ -43,12 +43,10 @@ class SignForm extends Component {
   }
   render() {
     return (
-      <div className="sign-form">
+      <div className={'sign-form ' + (this.state.signIn ? 'in' : 'up')}>
         <SignTab signIn={this.state.signIn} onMethodChange={this.handleMethodChange} />
-        <div className={'slider-boxes '+(this.state.signIn?'right':'left')}>
-          <SignUp />
-          <SignIn />
-        </div>
+        <SignUp />
+        <SignIn />
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BaseForm from './base-form';
 import './inputs.css';
-import './sign-up.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -51,6 +50,7 @@ class SignUp extends Component {
           formConfig={this.formConfig}
           request={{
             url: '/api/register',
+            name: '注册',
             method: 'post',
             then: (res) => console.log(res),
             error: (err) => console.log(err)

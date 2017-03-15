@@ -48,19 +48,9 @@
   .sign-tab span.right {
     left: 50%;
   }
-.slider-boxes {
-  transition: transform .3s;
-  width: 200%;
+.sign-form.in .sign-up {
+  display: none;
 }
-.slider-boxes.left {
-  transform: translateX(0%);
+.sign-form.up .sign-in {
+  display: none;
 }
-.slider-boxes.right {
-  transform: translateX(-50%);
-}
-  .slider-boxes>div {
-    width: 50%;
-    float: left;
-  }
-
-

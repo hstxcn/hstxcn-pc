@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BasicTextInput from './basic-text-input';
-import './text-input.css';
 
 class PasswordInput extends Component {
 

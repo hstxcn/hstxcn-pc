@@ -1,0 +1,81 @@
+input[type=text], input[type=password], input[type=submit], .base-form-message {
+  width: 100%;
+  font-size: .8rem;
+  color: #555;
+  vertical-align: baseline;
+  transition: .1s all linear;
+  border: .1rem solid rgba(0, 0, 0, .12);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input[type=submit] {
+  margin-top: 3rem;
+  padding: .8rem;
+  cursor: pointer;
+  width: 80%;
+}
+input[type=submit]:hover {
+  background-color: #fafafa;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 300px #fff inset;
+  -webkit-text-fill-color: #555;
+}
+input[type=text], input[type=password] {
+  padding: .8rem .8rem .8rem 3rem;
+}
+.text-input {
+  width: 80%;
+  margin: .6rem auto;
+  display: inline-block;
+  position: relative;
+}
+.text-input label {
+  position: absolute;
+  font-size: .8rem;
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: .8rem 0;
+  left: .8rem;
+  color: #aaa;
+  transition: .1s all linear;
+  cursor: text;
+}
+.text-input.focused input {
+  padding-left: 2.5rem;
+}
+.text-input.focused label {
+  left: .3rem;
+  opacity: .5;
+}
+.text-input.touched.invalid input{
+  border-color: #CD314E;
+}
+.text-input.touched.valid input{
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.base-form-message {
+  margin: 0 auto;
+  padding: .8rem;
+  width: 80%;
+  color: #f7fafc;
+}
+.base-form-message.ok {
+  display: none;
+}
+.base-form-message.error {
+  background-color: #CD314E;
+}

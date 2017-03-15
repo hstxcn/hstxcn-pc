@@ -4,8 +4,7 @@ hstxcn frontend (pc)
 
 ## usage
 ```sh
-npm start
-npm build
-npm test
-npm eject
+npm run start
+npm run build
+npm run test
 ```
